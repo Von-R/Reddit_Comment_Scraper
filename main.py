@@ -12,11 +12,11 @@ SIMILARITY_THRESHOLD = 0.3  # Similarity threshold for filtering comments
 nlp = spacy.load('en_core_web_md')  # Load spaCy's medium English model
 
 reddit = praw.Reddit(
-    client_id="vzqeHlhnmUQGls_0iqTUkQ",
-    client_secret="9JqnyUVYba2QcTR-dqMzzqJJQS4p6A",
-    password="Iwanttobehappy!99!",
-    user_agent="script: CommentBot by _Stahl",
-    username="_Stahl"
+    client_id="",
+    client_secret="",
+    password="",
+    user_agent="",
+    username=""
 )
 
 subreddits = []
