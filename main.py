@@ -12,10 +12,13 @@ SIMILARITY_THRESHOLD = 0.3  # Similarity threshold for filtering comments
 nlp = spacy.load('en_core_web_md')  # Load spaCy's medium English model
 
 reddit = praw.Reddit(
-    client_id="3lSRLrtfLWpxmgy_eEfCCg",
-    client_secret="uLltUOgCYA1Zzi8zWNr8EsyHORAeeQ",
-    user_agent="u/_Stahl"
+    client_id="vzqeHlhnmUQGls_0iqTUkQ",
+    client_secret="9JqnyUVYba2QcTR-dqMzzqJJQS4p6A",
+    password="Iwanttobehappy!99!",
+    user_agent="script: CommentBot by _Stahl",
+    username="_Stahl"
 )
+
 subreddits = []
 
 
@@ -35,7 +38,7 @@ def filter_comments(title, comments):
         comment_doc = nlp(comment)
 
         # Ignore empty comments and those with a similarity score < 0.3
-        if comment_doc.vector_norm and title_doc.vector_norm and comment_doc.similarity(title_doc) >= 0.3:
+        if comment_doc.vector_norm and title_doc.vector_norm and comment_doc.similarity(title_doc) >= SIMILARITY_THRESHOLD:
             filtered_comments.append(comment)
         else:
             removed_comments.append(comment)
@@ -140,7 +143,7 @@ def display_subreddits():
 
 
 def get_top_posts(subreddits, num_posts, num_comments):
-    reddit = praw.Reddit(client_id='my_client_id', client_secret='my_client_secret', user_agent='my_user_agent')
+    #reddit = praw.Reddit(client_id='my_client_id', client_secret='my_client_secret', user_agent='my_user_agent')
 
     for subreddit_title in subreddits:
         subreddit = reddit.subreddit(subreddit_title)
@@ -149,7 +152,7 @@ def get_top_posts(subreddits, num_posts, num_comments):
         filtered_data = {"Subreddit_title": subreddit_title, "Posts": []}
 
         for post in top_posts:
-            top_comments = list(post.comments)[:num_comments]
+            top_comments = [comment.body for comment in list(post.comments)[:num_comments]]
 
             filtered_comments, removed_comments = filter_comments(post.title, top_comments)
 
